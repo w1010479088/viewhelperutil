@@ -62,7 +62,7 @@ install {
                 }
                 developers {
                     developer {
-                        id 'w1010479088'        //填写的一些基本信息
+                        id 'lrlzbeautyshop'        //填写的一些基本信息
                         name 'wu jun'
                         email '1010479088@qq.com'
                     }
