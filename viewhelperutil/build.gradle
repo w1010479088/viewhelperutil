@@ -42,7 +42,8 @@ dependencies {
 //需要添加的部分
 def siteUrl = 'https://github.com/w1010479088/viewhelperutil.git'   // 项目的主页
 def gitUrl = 'git@github.com:w1010479088/viewhelperutil.git'   // Git仓库的url
-group = "com.viewhelper"            // Maven Group ID for the artifact，一般填你唯一的包名
+
+group = "lrlzbeautyshop"            // Maven Group ID for the artifact，一般填你唯一的包名
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
@@ -62,7 +63,7 @@ install {
                 developers {
                     developer {
                         id 'w1010479088'        //填写的一些基本信息
-                        name 'BruceeWu'
+                        name 'wu jun'
                         email '1010479088@qq.com'
                     }
                 }
