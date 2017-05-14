@@ -1,4 +1,4 @@
-package com.viewhelperutil;
+package com.viewhelperutil.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,7 +12,6 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
  * 图片圆角工具类
- * Created by mac on 2017/5/11.
  */
 
 public class TransformUtils {

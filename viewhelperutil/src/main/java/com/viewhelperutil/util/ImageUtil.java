@@ -1,4 +1,4 @@
-package com.viewhelperutil;
+package com.viewhelperutil.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,36 +14,49 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.viewhelperutil.R;
 
 import java.io.File;
 
 /**
- * 图片的加载类
- * Created by songlintao on 2016/12/8.
+ * 图片的加载工具类
  */
 
 public class ImageUtil {
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl) {
+
+    private volatile static ImageUtil mInstance;
+
+    public static ImageUtil getInstance(){
+        if(mInstance == null){
+            synchronized (ImageUtil.class){
+                if(mInstance == null){
+                    mInstance = new ImageUtil();
+                }
+            }
+        }
+        return mInstance;
+    }
+
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl) {
         if (TextUtils.isEmpty(imgUrl)) return;
         getGlide(context, activity, fragment)
                 .load(imgUrl)
-                .placeholder(R.drawable.viewhelperutils_place_img)
-                .error(R.drawable.viewhelperutils_place_img)
+                .placeholder(getDefaultPlaceImage())
+                .error(getDefaultPlaceImage())
+                .fitCenter()
+                .into(iv);
+    }
+
+    public void setNoPHImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl) {
+        if (TextUtils.isEmpty(imgUrl)) return;
+        getGlide(context, activity, fragment)
+                .load(imgUrl)
                 .fitCenter()
                 .into(iv);
     }
 
 
-    public static void setNoPHImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl) {
-        if (TextUtils.isEmpty(imgUrl)) return;
-        getGlide(context, activity, fragment)
-                .load(imgUrl)
-                .fitCenter()
-                .into(iv);
-    }
-
-
-    public static void setImageResize(Context context, Activity activity, Fragment fragment,int width,int height, ImageView iv, String uri) {
+    public void setImageResize(Context context, Activity activity, Fragment fragment,int width,int height, ImageView iv, String uri) {
         if (uri == null) return;
         getGlide(context, activity, fragment)
                 .load(uri).override(width,height)
@@ -51,7 +64,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, int placeHolderId) {
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, int placeHolderId) {
         if (TextUtils.isEmpty(imgUrl)) return;
         getGlide(context, activity, fragment)
                 .load(imgUrl)
@@ -61,7 +74,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, Drawable placeHolderDraw) {
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, Drawable placeHolderDraw) {
         if (TextUtils.isEmpty(imgUrl)) return;
         getGlide(context, activity, fragment)
                 .load(imgUrl)
@@ -71,7 +84,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, float corner_percent, Drawable placeHolderDraw) {
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, float corner_percent, Drawable placeHolderDraw) {
         if (TextUtils.isEmpty(imgUrl)) return;
         if (corner_percent <= 0f) {
             return;
@@ -84,7 +97,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, float corner_percent, @DrawableRes int placeHolderId) {
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl, float corner_percent, @DrawableRes int placeHolderId) {
         if (TextUtils.isEmpty(imgUrl)) return;
         if (corner_percent <= 0f) {
             return;
@@ -97,20 +110,20 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String url, float corner_percent) {
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String url, float corner_percent) {
         if (corner_percent <= 0f) {
             return;
         }
         if (TextUtils.isEmpty(url)) return;
         getGlide(context, activity, fragment)
                 .load(url)
-                .placeholder(R.drawable.viewhelperutils_place_img)
+                .placeholder(getDefaultPlaceImage())
                 .transform(new TransformUtils.RecWithRound(context, corner_percent))
-                .error(R.drawable.viewhelperutils_place_img)
+                .error(getDefaultPlaceImage())
                 .into(iv);
     }
 
-    public static void setCropSquareImage(Context context, Activity activity, Fragment fragment, ImageView iv, String url) {
+    public void setCropSquareImage(Context context, Activity activity, Fragment fragment, ImageView iv, String url) {
         if (TextUtils.isEmpty(url)) return;
         getGlide(context, activity, fragment)
                 .load(url)
@@ -119,7 +132,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setCropSquareImage(Context context, Activity activity, Fragment fragment, ImageView iv, String url, int placeHolderId) {
+    public void setCropSquareImage(Context context, Activity activity, Fragment fragment, ImageView iv, String url, int placeHolderId) {
         if (TextUtils.isEmpty(url)) return;
         getGlide(context, activity, fragment)
                 .load(url)
@@ -128,7 +141,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setCropSquareImage(Context context, Activity activity, Fragment fragment, ImageView iv, Uri uri) {
+    public void setCropSquareImage(Context context, Activity activity, Fragment fragment, ImageView iv, Uri uri) {
         if (uri == null) return;
         getGlide(context, activity, fragment)
                 .load(uri)
@@ -139,7 +152,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, File imageFile) {
+    public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, File imageFile) {
         if (imageFile == null || !imageFile.exists() || imageFile.isDirectory()) return;
         getGlide(context, activity, fragment)
                 .load(imageFile)
@@ -147,7 +160,7 @@ public class ImageUtil {
                 .into(iv);
     }
 
-    public static Bitmap drawableToBitmap(Drawable drawable) {
+    public Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap = Bitmap.createBitmap(
                 drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(),
@@ -159,7 +172,7 @@ public class ImageUtil {
         return bitmap;
     }
 
-    private static RequestManager getGlide(Context context, Activity activity, Fragment fragment) {
+    private RequestManager getGlide(Context context, Activity activity, Fragment fragment) {
         if (fragment != null) {
             return Glide.with(fragment);
         } else if (activity != null) {
@@ -169,4 +182,7 @@ public class ImageUtil {
         }
     }
 
+    protected int getDefaultPlaceImage(){
+        return R.drawable.viewhelperutils_place_img;
+    }
 }
