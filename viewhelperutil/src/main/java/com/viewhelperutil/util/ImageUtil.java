@@ -19,33 +19,33 @@ import com.viewhelperutil.R;
 import java.io.File;
 
 /**
- * 图片的加载工具类
+ * 图片的加载类
+ * Created by songlintao on 2016/12/8.
  */
 
 public class ImageUtil {
-
-    private volatile static ImageUtil mInstance;
-
-    public static ImageUtil getInstance(){
-        if(mInstance == null){
-            synchronized (ImageUtil.class){
-                if(mInstance == null){
-                    mInstance = new ImageUtil();
+    private static volatile ImageUtil instance;
+    public static ImageUtil getSingleton() {
+        if (instance == null) {
+            synchronized (ImageUtil.class) {
+                if (instance == null) {
+                    instance = new ImageUtil();
                 }
             }
         }
-        return mInstance;
+        return instance;
     }
 
     public void setImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl) {
         if (TextUtils.isEmpty(imgUrl)) return;
         getGlide(context, activity, fragment)
                 .load(imgUrl)
-                .placeholder(getDefaultPlaceImage())
-                .error(getDefaultPlaceImage())
+                .placeholder(defaultPlaceImg())
+                .error(defaultErrorImg())
                 .fitCenter()
                 .into(iv);
     }
+
 
     public void setNoPHImage(Context context, Activity activity, Fragment fragment, ImageView iv, String imgUrl) {
         if (TextUtils.isEmpty(imgUrl)) return;
@@ -117,9 +117,9 @@ public class ImageUtil {
         if (TextUtils.isEmpty(url)) return;
         getGlide(context, activity, fragment)
                 .load(url)
-                .placeholder(getDefaultPlaceImage())
+                .placeholder(defaultPlaceImg())
                 .transform(new TransformUtils.RecWithRound(context, corner_percent))
-                .error(getDefaultPlaceImage())
+                .error(defaultErrorImg())
                 .into(iv);
     }
 
@@ -172,7 +172,7 @@ public class ImageUtil {
         return bitmap;
     }
 
-    private RequestManager getGlide(Context context, Activity activity, Fragment fragment) {
+    protected RequestManager getGlide(Context context, Activity activity, Fragment fragment) {
         if (fragment != null) {
             return Glide.with(fragment);
         } else if (activity != null) {
@@ -182,7 +182,11 @@ public class ImageUtil {
         }
     }
 
-    protected int getDefaultPlaceImage(){
+    protected int defaultPlaceImg(){
+        return R.drawable.viewhelperutils_place_img;
+    }
+
+    protected int defaultErrorImg(){
         return R.drawable.viewhelperutils_place_img;
     }
 }

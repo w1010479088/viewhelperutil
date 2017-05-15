@@ -40,6 +40,7 @@ import java.util.concurrent.Executors;
 
 /**
  * View属性设置的帮助类
+ * Created by songlintao on 16/10/13.
  */
 
 @SuppressWarnings("all")
@@ -286,7 +287,7 @@ public class ViewHelper {
     }
 
     public void clearImage(int viewId) {
-        setImage(viewId, getDefaultPlaceImage());
+        setImage(viewId, R.drawable.viewhelperutils_place_img);
     }
 
     public void clearImage(int... viewIds) {
@@ -304,33 +305,33 @@ public class ViewHelper {
 
     public void setImage(int viewId, String url) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setImage(getContext(), mActivity, mFragment, imageView, url);
+        ImageUtil.getSingleton().setImage(getContext(), mActivity, mFragment, imageView, url);
     }
 
 
     public void setImageResize(int viewId, int width, int height, String url) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setImageResize(getContext(), mActivity, mFragment, width, height, imageView, url);
+        ImageUtil.getSingleton().setImageResize(getContext(), mActivity, mFragment, width, height, imageView, url);
     }
 
     public void setImage(int viewId, String url, @DrawableRes int placeHolderId) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setImage(getContext(), mActivity, mFragment, imageView, url, placeHolderId);
+        ImageUtil.getSingleton().setImage(getContext(), mActivity, mFragment, imageView, url, placeHolderId);
     }
 
     public void setImage(int viewId, String url, float corner_percent) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setImage(getContext(), mActivity, mFragment, imageView, url, corner_percent);
+        ImageUtil.getSingleton().setImage(getContext(), mActivity, mFragment, imageView, url, corner_percent);
     }
 
     public void setImage(int viewId, String url, float corner_percent, Drawable plachHolder) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setImage(getContext(), mActivity, mFragment, imageView, url, corner_percent, plachHolder);
+        ImageUtil.getSingleton().setImage(getContext(), mActivity, mFragment, imageView, url, corner_percent, plachHolder);
     }
 
     public void setImage(int viewId, File imageFile) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setImage(getContext(), mActivity, mFragment, imageView, imageFile);
+        ImageUtil.getSingleton().setImage(getContext(), mActivity, mFragment, imageView, imageFile);
     }
 
     public ImageView setImage(int viewId, Drawable drawable) {
@@ -489,11 +490,11 @@ public class ViewHelper {
 
     public void setNoPHImage(int viewId, String imageUrl) {
         ImageView imageView = getView(viewId);
-        ImageUtil.getInstance().setNoPHImage(getContext(), mActivity, mFragment, imageView, imageUrl);
+        ImageUtil.getSingleton().setNoPHImage(getContext(), mActivity, mFragment, imageView, imageUrl);
     }
 
     public void setNoPHImage(ImageView imageView, String imageUrl) {
-        ImageUtil.getInstance().setNoPHImage(getContext(), mActivity, mFragment, imageView, imageUrl);
+        ImageUtil.getSingleton().setNoPHImage(getContext(), mActivity, mFragment, imageView, imageUrl);
     }
 
     public interface BeforeTextChanged {
@@ -532,9 +533,5 @@ public class ViewHelper {
     public void destroy() {
         workServices.shutdownNow();
         mUIHandler.removeCallbacksAndMessages(null);
-    }
-
-    protected int getDefaultPlaceImage(){
-        return R.drawable.viewhelperutils_place_img;
     }
 }
