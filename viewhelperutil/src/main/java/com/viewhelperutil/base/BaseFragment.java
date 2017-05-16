@@ -13,7 +13,7 @@ import com.viewhelperutil.ViewHelper;
  * Fragment基类
  * Created by mac on 16/10/8.
  */
-public abstract class BaseFragment extends Fragment implements BackHandledInterface {
+public abstract class BaseFragment extends Fragment{
     protected boolean mIsVisible;
     protected boolean mIsDataLoaded;
     protected ViewHelper mHelper;
@@ -84,11 +84,6 @@ public abstract class BaseFragment extends Fragment implements BackHandledInterf
 
     public void post_event(Object data) {
         EventBusUtil.post_event(data);
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return BackHandlerHelper.handleBackPress(this);
     }
 
     @Override

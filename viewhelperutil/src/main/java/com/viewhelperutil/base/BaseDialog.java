@@ -106,6 +106,7 @@ public abstract class BaseDialog extends AppCompatDialogFragment {
     protected void unregister_bus() {
         EventBusUtil.unregister_bus(this);
     }
+
     public void post_event(Object data) {
         EventBusUtil.post_event(data);
     }
