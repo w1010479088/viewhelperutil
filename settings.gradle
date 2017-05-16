@@ -1,1 +1,1 @@
-include ':app', ':viewhelperutil'
+include ':app', ':viewhelperutil', ':networkutil'
